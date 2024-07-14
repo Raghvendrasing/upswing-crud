@@ -1,0 +1,14 @@
+<app-table *ngIf="dataReady" [config]="tableConfig" [tableData]="tableData" [formJson]="formJson" 
+(formData)="formData($event)" (OnActionClick)="actionClick($event)"
+(onAdd)="onAdd($event)" [editData]="editFormData" (onDeletechecked)="bulkDelete($event)"></app-table>
+
+
+<p-dialog [(visible)]="confimation" header="Confimation" [draggable]="false" [transitionOptions]="'0ms'" [position]="'top'" [modal]="true">
+    <div style="min-width: 25rem;">
+        <p class="text-center">Are you sure want to delete?</p>
+        <div style="display: flex;justify-content: space-around;">
+            <p-button label="Yes" icon="pi pi-check" styleClass="btn butn-custom-sucss" (click)="buttonClick(true)"></p-button>
+            <p-button label="No" icon="pi pi-times" styleClass="btn butn-custom-orng" (click)="buttonClick(false)"></p-button>
+        </div>
+    </div>
+</p-dialog>

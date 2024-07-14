@@ -1,0 +1,235 @@
+{
+    "formControls": [
+        {
+            "isEditable": false,
+            "isVisible": false,
+            "label": "Id",
+            "type": "text",
+            "inputType": "text",
+            "class": "col-md-6",
+            "lblclass": "custom-label",
+            "valueclass": "input-box",
+            "placeholder": "",
+            "formControlName": "id",
+            "defaultValue": "",
+            "maxlength": "100",
+            "message": {
+                "required": "Name is required",
+                "pattern": "Only alphabet are allowed"
+            },
+            "validations": {
+                "required": false,
+                "pattern": ""
+            }
+        },
+        {
+            "isEditable": true,
+            "isVisible": true,
+            "label": "Name",
+            "type": "text",
+            "inputType": "text",
+            "class": "col-md-6",
+            "lblclass": "custom-label",
+            "valueclass": "input-box",
+            "placeholder": "Enter name...",
+            "formControlName": "name",
+            "defaultValue": "",
+            "maxlength": "100",
+            "message": {
+                "required": "Name is required",
+                "pattern": "Only alphabet are allowed"
+            },
+            "validations": {
+                "required": true,
+                "pattern": "^[a-zA-Z ]*$"
+            }
+        },
+        {
+            "id": 0,
+            "isEditable": true,
+            "isVisible": true,
+            "label": "Mobile No.",
+            "type": "text",
+            "inputType": "number",
+            "class": "col-md-6 my-1",
+            "lblclass": "custom-label",
+            "valueclass": "input-box",
+            "placeholder": "Enter Mobile No.",
+            "maxlength": "10",
+            "minlength": "10",
+            "formControlName": "mobileNo",
+            "message": {
+                "required": "Mobile No. is required",
+                "pattern": "Please re-enter using a valid 10-digit mobile number."
+            },
+            "validations": {
+                "required": true,
+                "pattern": "^\\d{10}$"
+            }
+        },
+        {
+            "isEditable": true,
+            "isVisible": true,
+            "label": "Gender",
+            "type": "radio",
+            "class": "col-md-6",
+            "lblclass": "custom-label",
+            "formControlName": "gender",
+            "values": [
+                {
+                    "label": "Male",
+                    "value": "male"
+                },
+                {
+                    "label": "Female",
+                    "value": "female"
+                },
+                {
+                    "label": "Other",
+                    "value": "other"
+                }
+            ],
+            "defaultValue": "",
+            "message": {
+                "required": "Gender is required",
+                "pattern": ""
+            },
+            "validations": {
+                "required": true,
+                "pattern": ""
+            }
+        },
+        {
+            "isEditable": true,
+            "isVisible": true,
+            "label": "Date of Birth",
+            "type": "date",
+            "inputType": "date",
+            "class": "col-md-6",
+            "lblclass": "custom-label",
+            "placeholder": "Select date...",
+            "formControlName": "dob",
+            "defaultValue": "",
+            "message": {
+                "required": "Date of Birth is required",
+                "pattern": ""
+            },
+            "validations": {
+                "required": false,
+                "pattern": ""
+            }
+        },
+        {
+            "isEditable": true,
+            "isVisible": true,
+            "label": "Email",
+            "type": "text",
+            "inputType": "email",
+            "class": "col-md-6",
+            "lblclass": "custom-label",
+            "valueclass": "input-box",
+            "placeholder": "xyz123@example.com",
+            "formControlName": "email",
+            "defaultValue": "",
+            "maxlength": "100",
+            "minlength": "2",
+            "message": {
+                "required": "Email is required",
+                "pattern": "Please enter correct format"
+            },
+            "validations": {
+                "required": false,
+                "pattern": ""
+            }
+        },
+        {
+            "isEditable": true,
+            "isVisible": true,
+            "label": "Insurance Provider",
+            "type": "text",
+            "inputType": "text",
+            "class": "col-md-6",
+            "lblclass": "custom-label",
+            "valueclass": "input-box",
+            "placeholder": "Enter insurance provider...",
+            "formControlName": "insuranceProvider",
+            "defaultValue": "",
+            "maxlength": "100",
+            "message": {
+                "required": "Insurance Provider is required",
+                "pattern": "Only alphabet are allowed"
+            },
+            "validations": {
+                "required": false,
+                "pattern": ""
+            }
+        },
+        {
+            "isEditable": true,
+            "isVisible": true,
+            "label": "Emergency Contact",
+            "type": "text",
+            "inputType": "text",
+            "class": "col-md-6",
+            "lblclass": "custom-label",
+            "valueclass": "input-box",
+            "placeholder": "Enter emergency contact...",
+            "formControlName": "emergencyContact",
+            "defaultValue": "",
+            "maxlength": "100",
+            "message": {
+                "required": "Emergency Contact is required",
+                "pattern": ""
+            },
+            "validations": {
+                "required": true,
+                "pattern": ""
+            }
+        },
+        {
+            "id": 21,
+            "isEditable": true,
+            "isVisible": true,
+            "label": "Address",
+            "type": "textarea",
+            "class": "col-md-6",
+            "lblclass": "custom-label",
+            "valueclass": "textarea-custom",
+            "row": "2",
+            "minlength": "1",
+            "maxlength": "150",
+            "formControlName": "address",
+            "defaultValue": "",
+            "message": {
+                "required": "",
+                "pattern": "Only Alphanumeric"
+            },
+            "validations": {
+                "required": false,
+                "pattern": ""
+            }
+        },
+        {
+            "id": 18,
+            "isVisible": true,
+            "type": "button",
+            "subtype": "submit",
+            "class": "col-md-2",
+            "valueclass": "butn-custom-sucss",
+            "btnLabel": "Save",
+            "icon": "",
+            "isDisabled": false
+        },
+        {
+            "id": 18,
+            "isVisible": true,
+            "type": "button",
+            "subtype": "cancel",
+            "class": "col-md-2",
+            "valueclass": "butn-custom-orng",
+            "btnLabel": "Cancel",
+            "icon": "",
+            "isDisabled": false
+        }
+    ]
+}

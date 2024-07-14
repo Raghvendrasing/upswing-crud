@@ -1,0 +1,50 @@
+{
+    "isTablefeature":true,
+    "bulkAction":[
+        "Search", "Addbutton", "Delete", "PDF"
+    ],
+    "isCheckbox":true,
+    "isActionsRight":true,
+    "commonActionTitle":"Actions",
+    "tableHeaders": [
+    {
+      "field": "patientName",
+      "header": "Name"
+    },
+    {
+      "field": "patientGender",
+      "header": "Gender"
+    },
+    {
+        "field": "patientDob",
+        "header": "Date of Birth"
+    },
+    {
+        "field": "patientMobile",
+        "header": "Mobile No."
+    },
+    {
+        "field": "patientEmeCont",
+        "header": "Emergency Contact No."
+      }
+  ],
+  "Actions":[
+    {
+      "name": "Delete",
+      "imagePath": "../../../assets/trash.png"
+    },
+    {
+      "name": "Edit",
+      "imagePath": "../../../assets/edit.png"
+    }
+  ],
+  "globalFilter":[
+    "patientName", "patientAge"
+  ],
+  "sidebarSide":"right",
+  "sidebarSize":"p-sidebar-md",
+  "sidebarHeader":"Patient Form",
+  "pagination": {
+    "rows": 50
+  }
+}

@@ -1,0 +1,178 @@
+<div style="padding: 50px;">
+
+    <div style="display: block;">
+        <ngx-charts-bar-vertical
+          [scheme]="colorScheme"
+          [results]="transformedData"
+          [gradient]="gradient"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [legend]="showLegend"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel">
+        </ngx-charts-bar-vertical>
+      </div>
+      
+    
+    <br>
+    
+    <p-table #dt [value]="tableData" [columns]="config.tableHeaders" [globalFilterFields]="config.globalFilter"
+        styleClass="p-datatable-gridlines" [paginator]="true" [rows]="config.pagination.rows" [totalRecords]="totalRecords"
+        (onPage)="changePage($event)">
+        <ng-template pTemplate="caption">
+            <div class="tableFeatures p-d-flex p-jc-between p-ai-center">
+                <div class="p-d-flex p-ai-center search-container">
+                    <span *ngIf="config?.bulkAction.includes('Search')" class="p-input-icon-left search-wrapper">
+                        <input pInputText type="text" class="search-input"
+                            (input)="dt.filterGlobal(($any($event.target).value), 'contains')"
+                            placeholder="Search keyword" />
+    
+                    </span>
+                </div>
+                <div class="p-d-flex p-ai-center button-container">
+                    <p-button *ngIf="config?.bulkAction.includes('Delete')" icon="pi pi-trash"
+                        class="p-button-danger table-header-btn me-1" pTooltip="Bulk Delete" tooltipPosition="top" pRipple
+                        (click)="ondeletechecked()">
+                    </p-button>
+                    <p-button *ngIf="config?.bulkAction.includes('Addbutton')" icon="pi pi-plus"
+                        class="p-button-primary table-header-btn me-1" pTooltip="Add New" tooltipPosition="top" pRipple
+                        (click)="AddNewProduct($event)">
+                    </p-button>
+                    <p-button *ngIf="config?.bulkAction.includes('PDF')" icon="pi pi-file-pdf"
+                    class="p-button-primary table-header-btn me-1" pTooltip="Export PDF" tooltipPosition="top" pRipple
+                    (click)="exportPdf()">
+                </p-button>
+                </div>
+            </div>
+        </ng-template>
+    
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 1rem; text-align: center;" *ngIf="config?.isCheckbox">
+                    <p-tableHeaderCheckbox (click)="checkAll($event)" [ngModel]="allSelected"></p-tableHeaderCheckbox>
+                </th>
+    
+                <th style="padding: 0.25rem 0.25rem;" pSortableColumn="{{col.field}}"
+                    *ngFor="let col of config?.tableHeaders" pResizableColumn pReorderableColumn
+                    [ngStyle]="{'width': col.setWidthForColumn, 'padding': '0.25rem 0.25rem'}">
+                    <div class="flex justify-content-center align-items-center">
+                        {{col.header}}
+                        <p-sortIcon type="text" pTooltip="Sort" tooltipPosition="top" field="{{col.field}}"></p-sortIcon>
+                    </div>
+                </th>
+    
+                <th class="text-center" *ngIf="config?.isActionsRight">
+                    {{config?.commonActionTitle}}
+                </th>
+            </tr>
+        </ng-template>
+    
+        <ng-template pTemplate="body" let-rowData>
+            <tr>
+                <td *ngIf="config?.isCheckbox" style="text-align: center;">
+                    <p-tableCheckbox [value]="rowData" [(ngModel)]="rowData.selected"
+                        (click)="onRowCheckboxChange(rowData)"></p-tableCheckbox>
+                </td>
+                <td *ngFor="let col of config?.tableHeaders" style="padding: 0.25rem 0.25rem;">
+                    {{rowData[col.field]}}
+                </td>
+                <td class="text-center" *ngIf="config?.isActionsRight">
+                    <ng-container *ngFor="let action of config?.Actions">
+                        <button class="action-button" (click)="onClick(action.name, rowData)" pTooltip="{{ action?.name }}"
+                            tooltipPosition="top">
+                            <img [src]="action?.imagePath" [alt]="action.name + ' button'" class="image-size">
+                        </button>
+                    </ng-container>
+                </td>
+    
+            </tr>
+        </ng-template>
+    </p-table>
+    
+    
+    <p-sidebar [(visible)]="visibleSidebar" [position]="config.sidebarSide" styleClass="{{config.sidebarSize}}" (onHide)="resetForm()">
+        <ng-template pTemplate="header" style="background: linear-gradient(to right, #ADD8E6, #B0E0E6, #87CEEB);">
+            <i class="pi pi-pencil" style="margin-right: 1rem;"></i>
+            {{config.sidebarHeader | uppercase}}
+        </ng-template>
+    
+        <ng-template pTemplate="content">
+            <form [formGroup]="form">
+                <div class="row">
+                    <ng-container *ngFor="let formData of formControls">
+                        <div [id]="'id' + formData.fieldName" class="{{formData.class}}"
+                            [ngClass]="formData.visible ? 'visible' : 'hidden'">
+                            <label *ngIf="formData?.label" for="{{formData.fieldName}}" class="{{formData.lblclass}}"
+                                style="margin-bottom: 5px;">
+                                {{formData.label}} <span *ngIf="formData?.validations?.required" style="color: red;">
+                                    *</span>
+                            </label>
+    
+                            <div *ngIf="formData.fieldType === formStaticText.TEXT">
+                                <input type="{{formData.inputType}}" pInputText id="{{formData.fieldName}}"
+                                    name="{{formData.fieldName}}" class="form-controls"
+                                    [class.disabled]="!formData.editable" [formControlName]="formData.fieldName"
+                                    [attr.disabled]="!formData.editable ? true : null" [minlength]="formData.minlength"
+                                    [maxlength]="formData.maxlength"
+                                    [ngClass]="{'form-controls.disabled': !formData.editable}"
+                                    [(ngModel)]="formData.fieldValue" placeholder="{{formData.placeholder}}">
+                            </div>
+    
+                            <div *ngIf="formData.fieldType === formStaticText.DATE">
+                                <p-calendar inputId="{{formData.fieldName}}" [appendTo]="'body'" [name]="formData.fieldName"
+                                    [ngClass]="{'form-controls.disabled': !formData.editable}"
+                                    [formControlName]="formData.fieldName" class="form-controls"
+                                    [(ngModel)]="formData.fieldValue" [showButtonBar]="false" [showIcon]="true">
+                                </p-calendar>
+                            </div>
+    
+                            <div *ngIf="formData.fieldType === formStaticText.SELECT">
+                                <p-dropdown [options]="formData.values" [formControlName]="formData.fieldName"></p-dropdown>
+                              </div>
+                              
+                      
+                              <div *ngIf="formData.fieldType === formStaticText.RADIO" style="display: flex;">
+                                <div *ngFor="let option of formData.values" class="p-field-radiobutton" style="margin-right: 10px;">
+                                    {{ option.label }}
+                                  <p-radioButton [value]="option.value" [formControlName]="formData.fieldName" [disabled]="!formData.editable">
+                                  </p-radioButton>
+                                </div>
+                              </div>
+    
+                              <div *ngIf="formData.fieldType == formStaticText.BUTTON"
+                              [ngClass]="(formData.label == '') ? 'mt-3' : ''">
+                              <button pRipple type="{{formData.subtype}}" id="{{formData.fieldName}}"
+                                  [disabled]="formData.isDisabled" [tabIndex]="formData.tabIndex"
+                                  class="btn {{formData.valueclass}}" (click)="btnClick(formData)"><i
+                                      class="{{formData.icon}}" style="padding-right:7px"></i>{{formData.btnLabel}}</button>
+                          </div>
+                      
+                              <div *ngIf="formData.fieldType === formStaticText.TEXTAREA">
+                                <textarea pInputTextarea id="{{formData.fieldName}}" name="{{formData.fieldName}}" class="form-controls" [rows]="5"
+                                  [formControlName]="formData.fieldName" [attr.disabled]="!formData.editable ? true : null" [(ngModel)]="formData.fieldValue"
+                                  placeholder="{{formData.placeholder}}"></textarea>
+                              </div>
+    
+                            <div class="error-txt-msg"
+                                *ngIf="form.controls[formData.fieldName].value == '0' && form.controls[formData.fieldName].touched"
+                                style="color: red; ">
+                                {{formData.message.required}}
+                            </div>
+                            <div class="error-txt-msg"
+                                *ngIf="form.controls[formData.fieldName].hasError('required') && form.controls[formData.fieldName].touched">
+                                {{formData.message.required}}
+                            </div>
+                            <div class="error-txt-msg"
+                                *ngIf="form.controls[formData.fieldName].hasError('pattern') && form.controls[formData.fieldName].touched">
+                                {{formData.message.pattern}}
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </form>
+        </ng-template>
+    </p-sidebar>
+
+</div>
