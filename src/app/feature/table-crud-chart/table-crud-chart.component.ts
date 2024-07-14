@@ -26,7 +26,7 @@ export class TableCrudChartComponent {
   }
 
   getAllPatientData(){
-    // setTimeout(() => {
+    setTimeout(() => {
       this.patientApiSerivce.getData('patientData').subscribe(
         resp=>{
          this.tableData=resp;  
@@ -35,7 +35,7 @@ export class TableCrudChartComponent {
           console.error('API Error ==> ', error);
         }
        )      
-    // }, 1200);
+    }, 500);
   }
 
   formData(e:any){
