@@ -27,4 +27,4 @@ Open your browser and navigate to http://localhost:4200 to view the application.
 
 ## Photos and Screen Recordings
 
-All related photos and screen recordings can be found in the assets folder under user-info.
+All related photos and screen recordings can be found in the assets folder.
