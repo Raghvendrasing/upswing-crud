@@ -7,7 +7,7 @@ Description: upwingcrud is a versatile CRUD application designed for managing pa
 
 1. Clone the repository.
 2. Navigate to the project directory.
-3. Install dependencies with the help command :- npm install --legacy-peer-deps
+3. Install dependencies with the help command :-npm install --force OR npm install --legacy-peer-deps
 
 ## Usage
 To start the JSON server, run: npm run json-server
